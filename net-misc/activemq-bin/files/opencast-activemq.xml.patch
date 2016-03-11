@@ -1,0 +1,109 @@
+--- conf/activemq.xml.ori	2016-03-03 17:29:27.124995350 +0100
++++ conf/activemq.xml	2016-03-03 17:32:15.422502146 +0100
+@@ -59,6 +59,106 @@
+             </policyMap>
+         </destinationPolicy>
+ 
++        <destinationInterceptors>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="ACL.QUEUE">
++                <forwardTo>
++                  <queue physicalName="ACL.Adminui" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="ARCHIVE.QUEUE">
++                <forwardTo>
++                  <queue physicalName="ARCHIVE.Adminui" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="COMMENT.QUEUE">
++                <forwardTo>
++                  <queue physicalName="COMMENT.Adminui" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="GROUP.QUEUE">
++                <forwardTo>
++                  <queue physicalName="GROUP.Adminui" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="INDEX_RECEIVER.QUEUE">
++                <forwardTo>
++                  <queue physicalName="INDEX_RECEIVER.QUEUE.Acl" />
++                  <queue physicalName="INDEX_RECEIVER.QUEUE.Archive" />
++                  <queue physicalName="INDEX_RECEIVER.QUEUE.Comments" />
++                  <queue physicalName="INDEX_RECEIVER.QUEUE.Groups" />
++                  <queue physicalName="INDEX_RECEIVER.QUEUE.Scheduler" />
++                  <queue physicalName="INDEX_RECEIVER.QUEUE.Series" />
++                  <queue physicalName="INDEX_RECEIVER.QUEUE.Themes" />
++                  <queue physicalName="INDEX_RECEIVER.QUEUE.Workflow" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="RECORDING.QUEUE">
++                <forwardTo>
++                  <queue physicalName="RECORDING.Adminui" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="SCHEDULER.QUEUE">
++                <forwardTo>
++                  <queue physicalName="SCHEDULER.Adminui" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="SERIES.QUEUE">
++                <forwardTo>
++                  <queue physicalName="SERIES.Adminui" />
++                  <queue physicalName="SERIES.Conductor" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="THEME.QUEUE">
++                <forwardTo>
++                  <queue physicalName="THEME.Adminui" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++          <virtualDestinationInterceptor>
++            <virtualDestinations>
++              <compositeQueue name="WORKFLOW.QUEUE">
++                <forwardTo>
++                  <queue physicalName="WORKFLOW.Adminui" />
++                </forwardTo>
++              </compositeQueue>
++            </virtualDestinations>
++          </virtualDestinationInterceptor>
++        </destinationInterceptors>
+ 
+         <!--
+             The managementContext is used to configure how ActiveMQ is exposed in
