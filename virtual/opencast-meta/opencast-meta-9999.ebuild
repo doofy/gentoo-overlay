@@ -9,4 +9,5 @@ RDEPEND="
 >=net-misc/activemq-bin-5.13.1[opencast]
 app-text/tesseract
 virtual/ffmpeg
+virtual/jre
 "
