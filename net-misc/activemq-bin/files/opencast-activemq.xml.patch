@@ -1,5 +1,5 @@
---- conf/activemq.xml.ori	2016-03-03 17:29:27.124995350 +0100
-+++ conf/activemq.xml	2016-03-03 17:32:15.422502146 +0100
+--- conf/activemq.xml
++++ conf/activemq.xml
 @@ -59,6 +59,106 @@
              </policyMap>
          </destinationPolicy>
@@ -107,3 +107,13 @@
  
          <!--
              The managementContext is used to configure how ActiveMQ is exposed in
+@@ -133,4 +233,4 @@
+     <import resource="jetty.xml"/>
+ 
+ </beans>
+-<!-- END SNIPPET: example -->
+\ No newline at end of file
++<!-- END SNIPPET: example -->
+-- 
+2.12.0
+
