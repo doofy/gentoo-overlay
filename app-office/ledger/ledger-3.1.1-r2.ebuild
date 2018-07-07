@@ -44,7 +44,7 @@ DEPEND="
 
 PATCHES=(
 "${FILESDIR}/${P}-boost.patch" # bug 609108
-"${FILESDIR}/${P}-boost-2.patch" # bug ?
+"${FILESDIR}/${P}-boost-2.patch" # bug 654326
 )
 
 # Building with python integration seems to fail without 8G available
