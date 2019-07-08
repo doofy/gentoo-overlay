@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -10,12 +10,12 @@ inherit check-reqs cmake-utils elisp-common python-single-r1
 DESCRIPTION="A double-entry accounting system with a command-line reporting interface"
 HOMEPAGE="https://www.ledger-cli.org/"
 SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-
 LICENSE="BSD"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE="doc emacs python"
+IUSE="debug doc emacs python"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+RESTRICT="test"
 
 SITEFILE=50${PN}-gentoo-${PV}.el
 
@@ -42,10 +42,7 @@ DEPEND="
 	)
 "
 
-PATCHES=(
-"${FILESDIR}/${P}-boost.patch" # bug 609108
-"${FILESDIR}/${P}-boost-2.patch" # bug 654326
-)
+PATCHES=()
 
 # Building with python integration seems to fail without 8G available
 # RAM(!)  Since the memory check in check-reqs doesn't count swap, it
@@ -78,16 +75,20 @@ src_prepare() {
 		|| die "Failed to update info file name in file contents"
 
 	mv doc/ledger{3,}.texi || die "Failed to rename info file name"
+
+	eapply_user
 }
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_build emacs EMACSLISP)
-		$(cmake-utils_use_build doc DOCS)
-		$(cmake-utils_use_build doc WEB_DOCS)
-		$(cmake-utils_use_use python PYTHON)
-		-DCMAKE_INSTALL_DOCDIR=/usr/share/doc/${PF}
+		-DBUILD_EMACSLISP="$(usex emacs)"
+		-DBUILD_DOCS="$(usex doc)"
+		-DBUILD_WEB_DOCS="$(usex doc)"
+		-DUSE_PYTHON="$(usex python)"
+		-DCMAKE_INSTALL_DOCDIR="/usr/share/doc/${PF}"
 		-DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=ON
+		-DBUILD_DEBUG="$(usex debug)"
+		-DUSE_PYTHON27_COMPONENT=yes
 	)
 
 	cmake-utils_src_configure
@@ -120,4 +121,3 @@ pkg_postrm() {
 
 # rainy day TODO:
 # - IUSE test
-# - EAPI=6
